@@ -1,0 +1,31 @@
+nimbus:
+    type: custom
+    buildscript: storm/builder
+    postinstall: storm/nimbus-postinstall
+    systempackages:
+        - libtool
+    ports:
+        nimbus: tcp
+        ui: http
+    processes:
+        nimbus: ~/storm/bin/storm nimbus
+        ui: ~/storm/bin/storm ui
+worker:
+    type: custom
+    buildscript: storm/builder
+    postinstall: storm/worker-postinstall
+    systempackages:
+        - libtool
+    ports:
+        worker1: tcp
+        worker2: tcp
+        worker3: tcp
+        worker4: tcp
+    subapps:
+        zookeeper: my-tarball-link
+    processes:
+        stormsupervisor: ~/storm/bin/storm supervisor
+
+
+
+

@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+import os
+import yaml
+
+
+# this is the master, so we need to bind the internal Nimbus port
+nimbus_port = int(os.environ['PORT_NIMBUS'])
+worker_ports = []
+
+#zookeeper = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_HOST']
+#zookeeper_port = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT']
+
+# hard-code for now
+zookeeper = 'zktest-webteam.dotcloud.com'
+zookeeper_port = 12789
+
+conf = {
+    'storm.zookeeper.servers': [zookeeper],
+    'storm.zookeeper.port': zookeeper_port,
+    'storm.local.dir': '/home/dotcloud/data',
+    'nimbus.host': os.environ['DOTCLOUD_NIMBUS_NIMBUS_HOST'],
+    'nimbus.thrift.port': nimbus_port,
+    'supervisor.slots.ports': worker_ports,
+    'ui.port': int(os.environ['PORT_UI']),
+}
+print "Writing Nimbus' Storm configuration"
+yaml.dump(conf, stream=open('/home/dotcloud/storm/conf/storm.yaml', 'w'))
+

@@ -1,0 +1,67 @@
+#!/bin/bash
+
+cd storm
+
+# create virturalenv
+[ -d ~/virtualenv ] ||
+    virtualenv --python=python2.7 ~/virtualenv
+. ~/virtualenv/bin/activate
+[ -f requirements.txt ] &&
+    pip install --download-cache=~/.pip-cache --use-mirrors -r requirements.txt
+
+cat >~/profile <<EOF
+. ~/virtualenv/bin/activate
+export LD_LIBRARY_PATH=/home/dotcloud/virtualenv/lib:$LD_LIBRARY_PATH
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
+export PATH=$PATH:/usr/lib/jvm/java-6-openjdk/bin/jre/bin
+EOF
+
+. ~/profile
+echo $LD_LIBRARY_PATH
+echo 'JAVA_HOME: ' $JAVA_HOME
+echo '$PATH: ' $PATH
+
+# install subenvironments
+
+#pip install dotcloud
+#mv .dotcloud2 ~/
+# download each of the subenvironments
+# deploy subenvironments
+# load all the environments into subenvironments.json
+#for subenv in $SERVICE_SUBAPPS
+#do
+    
+
+if [ -f ~/.zmq_installed ]
+then
+    echo "ZeroMQ already installed"
+else
+    echo "Building ZeroMQ"
+    wget -O /tmp/zeromq-2.1.7.tar.gz http://download.zeromq.org/historic/zeromq-2.1.7.tar.gz
+    tar -zxf /tmp/zeromq-2.1.7.tar.gz -C /tmp/
+    cd /tmp/zeromq-2.1.7/
+    ./configure --prefix=/home/dotcloud/virtualenv
+    make
+    make install
+    
+    echo "Building ZeroMQ Java bindings"
+    cd /tmp/
+    git clone https://github.com/nathanmarz/jzmq.git
+    cd jzmq
+    ./autogen.sh
+    ./configure --prefix=/home/dotcloud/virtualenv --with-zeromq=/home/dotcloud/virtualenv
+    make
+    make install
+    touch ~/.zmq_installed
+fi
+
+
+if [ -d ~/storm ]
+then
+    echo "Storm already installed"
+else
+    echo "Installing Storm"
+    wget -O /tmp/storm-0.6.2.zip https://github.com/downloads/nathanmarz/storm/storm-0.6.2.zip
+    unzip /tmp/storm-0.6.2 -d /tmp/
+    mv /tmp/storm-0.6.2 ~/storm
+fi

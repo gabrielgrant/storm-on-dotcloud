@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+import os
+import yaml
+
+
+# this is a worker, so we connect to the external Nimbus port, and bind the internal worker ports
+nimbus_port = int(os.environ['DOTCLOUD_NIMBUS_NIMBUS_PORT'])
+worker_ports = [int(v) for k,v in os.environ.items() if k.startswith('PORT_WORKER')]
+
+#zookeeper = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_HOST']
+#zookeeper_port = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT']
+
+# hard-code for now
+zookeeper = 'zktest-webteam.dotcloud.com'
+zookeeper_port = 12789
+
+conf = {
+    'storm.zookeeper.servers': [zookeeper],
+    'storm.zookeeper.port': zookeeper_port,
+    'storm.local.dir': '/home/dotcloud/data',
+    'nimbus.host': os.environ['DOTCLOUD_NIMBUS_NIMBUS_HOST'],
+    'nimbus.thrift.port': nimbus_port,
+    'supervisor.slots.ports': worker_ports,
+    'ui.port': '',  # workers don't run the UI
+}
+print "Writing Worker's Storm configuration"
+yaml.dump(conf, stream=open('/home/dotcloud/storm/conf/storm.yaml', 'w'))
+
+
