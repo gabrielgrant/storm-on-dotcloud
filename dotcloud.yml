@@ -26,6 +26,12 @@ worker:
     processes:
         stormsupervisor: ~/storm/bin/storm supervisor
 
-
-
-
+zookeeper:
+    type: custom
+    buildscript: zookeeper/builder
+    postinstall: zookeeper/postinstall
+    ports:
+        connection: tcp
+        election: tcp
+    processes:
+        zookeeper: zookeeper/bin/zkServer.sh start-foreground

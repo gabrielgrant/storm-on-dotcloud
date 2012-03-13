@@ -8,12 +8,9 @@ import yaml
 nimbus_port = int(os.environ['DOTCLOUD_NIMBUS_NIMBUS_PORT'])
 worker_ports = [int(v) for k,v in os.environ.items() if k.startswith('PORT_WORKER')]
 
-#zookeeper = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_HOST']
-#zookeeper_port = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT']
+zookeeper = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_HOST']
+zookeeper_port = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT']
 
-# hard-code for now
-zookeeper = 'zktest-webteam.dotcloud.com'
-zookeeper_port = 12789
 
 conf = {
     'storm.zookeeper.servers': [zookeeper],
