@@ -1,0 +1,42 @@
+Storm[1] is a realtime computation system developed by Nathan Marz at
+BackType, a social web analytics company since acquired by Twitter.
+It is now used for Twitter's Web Analytics product.
+
+[1]: https://github.com/nathanmarz/storm
+
+How to use it
+-------------
+
+Clone the repo and push to dotCloud:
+
+    git clone https://github.com/gabrielgrant/storm-on-dotcloud.git
+    dotcloud push mystorm storm-on-dotcloud
+
+At the end of the push, you'll be provided the URL of the Storm WebUI.
+To find the URL of Nimbus' Thrift service, run `dotcloud info mystorm`
+
+What's included?
+----------------
+
+Storm consists of three physical components:
+
+ - Nimbus (the cluster master)
+ - Zookeeper (central hub for cluster discovery and config)
+ - Workers
+
+By default, deploying this repo will spin up one of each component,
+with four worker processes running on the worker machine.
+
+Scaling
+-------
+
+The Storm workers can be scaled like any other dotCloud service:
+
+    dotcloud scale mystorm.worker=3
+
+Note that the Nimbus shouldn't be scaled.
+
+Adding additional worker processes can be done by adding additional
+worker ports named "workerN" in the `dotcloud.yml` file.
+
+
