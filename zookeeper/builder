@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -d ~/zookeeper ]
+then
+    echo "Found Zookeeper installation."
+else   
+    echo "Installing Zookeeper"
+    wget -O /tmp/zookeeper-3.4.3.tar.gz http://apache.mesi.com.ar//zookeeper/current/zookeeper-3.4.3.tar.gz
+    tar -zxf /tmp/zookeeper-3.4.3.tar.gz -C /tmp/
+    mv /tmp/zookeeper-3.4.3  ~/zookeeper
+fi
+cp -a zookeeper/zoo.cfg ~/zookeeper/conf/zoo.cfg
+[ -d ~/data/zookeeper_data ] ||
+    mkdir -p ~/data/zookeeper_data
+
+

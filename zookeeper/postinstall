@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sed -i "s/{{ PORT_ZOOKEEPER }}/$PORT_CONNECTION/g" ~/zookeeper/conf/zoo.cfg
+#echo 
