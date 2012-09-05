@@ -54,7 +54,6 @@ else
     touch ~/.zmq_installed
 fi
 
-
 if [ -d ~/storm ]
 then
     echo "Storm already installed"
