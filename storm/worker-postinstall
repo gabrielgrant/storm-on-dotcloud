@@ -20,6 +20,7 @@ conf = {
     'nimbus.thrift.port': nimbus_port,
     'supervisor.slots.ports': worker_ports,
     'ui.port': '',  # workers don't run the UI
+    'java.library.path': '/home/dotcloud/virtualenv/lib/'
 }
 print "Writing Worker's Storm configuration"
 yaml.dump(conf, stream=open('/home/dotcloud/storm/conf/storm.yaml', 'w'))
