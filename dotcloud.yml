@@ -21,8 +21,6 @@ worker:
         worker2: tcp
         worker3: tcp
         worker4: tcp
-    subapps:
-        zookeeper: my-tarball-link
     processes:
         stormsupervisor: ~/storm/bin/storm supervisor
 
