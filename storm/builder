@@ -30,14 +30,13 @@ echo '$PATH: ' $PATH
 # load all the environments into subenvironments.json
 #for subenv in $SERVICE_SUBAPPS
 #do
-    
 
 if [ -f ~/.zmq_installed ]
 then
     echo "ZeroMQ already installed"
 else
     echo "Building ZeroMQ"
-    wget -O /tmp/zeromq-2.1.7.tar.gz http://download.zeromq.org/historic/zeromq-2.1.7.tar.gz
+    wget -O /tmp/zeromq-2.1.7.tar.gz http://download.zeromq.org/zeromq-2.1.7.tar.gz
     tar -zxf /tmp/zeromq-2.1.7.tar.gz -C /tmp/
     cd /tmp/zeromq-2.1.7/
     ./configure --prefix=/home/dotcloud/virtualenv
@@ -55,13 +54,12 @@ else
     touch ~/.zmq_installed
 fi
 
-
 if [ -d ~/storm ]
 then
     echo "Storm already installed"
 else
     echo "Installing Storm"
-    wget -O /tmp/storm-0.6.2.zip https://github.com/downloads/nathanmarz/storm/storm-0.6.2.zip
-    unzip /tmp/storm-0.6.2 -d /tmp/
-    mv /tmp/storm-0.6.2 ~/storm
+    wget -O /tmp/storm-0.8.0.zip https://github.com/downloads/nathanmarz/storm/storm-0.8.0.zip
+    unzip /tmp/storm-0.8.0 -d /tmp/
+    mv /tmp/storm-0.8.0 ~/storm
 fi

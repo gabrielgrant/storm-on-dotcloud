@@ -9,7 +9,7 @@ nimbus_port = int(os.environ['PORT_NIMBUS'])
 worker_ports = []
 
 zookeeper = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_HOST']
-zookeeper_port = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT']
+zookeeper_port = int(os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT'])
 
 conf = {
     'storm.zookeeper.servers': [zookeeper],

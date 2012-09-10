@@ -1,1 +1,4 @@
 pyyaml
+pymongo
+requests
+incf.countryutils

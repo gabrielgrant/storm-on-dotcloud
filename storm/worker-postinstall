@@ -9,7 +9,7 @@ nimbus_port = int(os.environ['DOTCLOUD_NIMBUS_NIMBUS_PORT'])
 worker_ports = [int(v) for k,v in os.environ.items() if k.startswith('PORT_WORKER')]
 
 zookeeper = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_HOST']
-zookeeper_port = os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT']
+zookeeper_port = int(os.environ['DOTCLOUD_ZOOKEEPER_CONNECTION_PORT'])
 
 
 conf = {
@@ -20,6 +20,7 @@ conf = {
     'nimbus.thrift.port': nimbus_port,
     'supervisor.slots.ports': worker_ports,
     'ui.port': '',  # workers don't run the UI
+    'java.library.path': '/home/dotcloud/virtualenv/lib/'
 }
 print "Writing Worker's Storm configuration"
 yaml.dump(conf, stream=open('/home/dotcloud/storm/conf/storm.yaml', 'w'))
