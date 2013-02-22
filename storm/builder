@@ -37,7 +37,7 @@ then
     echo "ZeroMQ already installed"
 else
     echo "Building ZeroMQ"
-    wget -O /tmp/zeromq-2.1.7.tar.gz http://download.zeromq.org/historic/zeromq-2.1.7.tar.gz
+    wget -O /tmp/zeromq-2.1.7.tar.gz http://download.zeromq.org/zeromq-2.1.7.tar.gz
     tar -zxf /tmp/zeromq-2.1.7.tar.gz -C /tmp/
     cd /tmp/zeromq-2.1.7/
     ./configure --prefix=/home/dotcloud/virtualenv
